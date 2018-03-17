@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "623398674327",
+    "firebase_url": "https://simbirsoft-maketalents.firebaseio.com",
+    "project_id": "simbirsoft-maketalents",
+    "storage_bucket": "simbirsoft-maketalents.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623398674327:android:0309e0db3f594eb6",
+        "android_client_info": {
+          "package_name": "ivan.simbirsoft.maketalents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623398674327-96oobime2sm6btqbpti98vdcucr8isip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOfPm0Eh4Dh-yLzr9SIu1l75afrnxDeZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
