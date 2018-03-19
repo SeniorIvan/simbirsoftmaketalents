@@ -6,4 +6,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AuthorizationActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/authorizationColorPrimary</item>
+        <item name="colorPrimaryDark">@color/authorizationColorPrimaryDark</item>
+        <item name="colorAccent">@color/authorizationColorAccent</item>
+
+        <item name="actionBarStyle">@style/AuthorizationActionBarTheme</item>
+        <item name="android:windowBackground">@color/authorizationColorPrimary</item>
+    </style>
+
+    <style name="AuthorizationActionBarTheme" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@null</item>
+    </style>
+
 </resources>

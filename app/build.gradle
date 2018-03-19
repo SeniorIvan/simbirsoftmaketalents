@@ -28,6 +28,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "com.google.firebase:firebase-auth:$firebase_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rxbinding_version"
     implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle_version"
     implementation "android.arch.lifecycle:extensions:$arch_lifecycle"
 }

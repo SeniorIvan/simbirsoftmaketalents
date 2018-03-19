@@ -1,3 +1,12 @@
 <resources>
+    <style name="ColoredButton" parent="Widget.AppCompat.Button.Colored">
 
+    </style>
+
+    <style name="AuthorizationGreenButton">
+        <item name="android:backgroundTint">#7bcb57</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

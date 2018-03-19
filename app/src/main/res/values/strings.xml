@@ -2,4 +2,10 @@
     <string name="app_name">simbirsoft.maketalents</string>
     <string name="viewmodel_some_error">Some error</string>
     <string name="authorization">Авторизация</string>
+    <string name="emil">Email</string>
+    <string name="password">Пароль</string>
+    <string name="registration">Регистрация</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="enter">Войти</string>
+    <string name="enter_by_social">Использовать соцсети</string>
 </resources>

@@ -6,6 +6,7 @@ buildscript {
     ext.appcompat_version = '27.1.0'
     ext.rxandroid_version = '2.0.2'
     ext.arch_lifecycle = '1.1.0'
+    ext.rxbinding_version = '2.0.0'
     ext.firebase_version = '11.8.0'
     ext.rxlifecycle_version = '2.2.1'
 
