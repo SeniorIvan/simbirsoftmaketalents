@@ -7,4 +7,5 @@
     <color name="authorizationColorPrimary">#232121</color>
     <color name="authorizationColorPrimaryDark">#1a1a1a</color>
     <color name="authorizationColorAccent">#969696</color>
+    <color name="profile_icon_color">#C6C6C9</color>
 </resources>

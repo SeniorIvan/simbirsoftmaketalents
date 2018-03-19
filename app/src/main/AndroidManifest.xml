@@ -20,6 +20,11 @@
             android:name=".activities.AuthorizationActivity"
             android:label="@string/authorization"
             android:theme="@style/AuthorizationActivityTheme" />
+
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="@string/profile"
+            android:theme="@style/ProfileActivityTheme" />
     </application>
 
 </manifest>
