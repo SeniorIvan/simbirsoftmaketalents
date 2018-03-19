@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">viewmodel</string>
+
+    <string name="viewmodel_some_error">Some error</string>
+</resources>

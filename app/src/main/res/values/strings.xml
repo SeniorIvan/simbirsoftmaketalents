@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">simbirsoft.maketalents</string>
+    <string name="viewmodel_some_error">Some error</string>
+    <string name="authorization">Авторизация</string>
 </resources>
