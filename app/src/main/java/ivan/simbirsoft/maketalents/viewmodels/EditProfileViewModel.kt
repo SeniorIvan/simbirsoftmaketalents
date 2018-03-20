@@ -1,6 +1,7 @@
 package ivan.simbirsoft.maketalents.viewmodels
 
 import android.net.Uri
+import android.util.Patterns
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
@@ -36,6 +37,9 @@ interface EditProfileOutputs {
     fun savingProgressBarVisibilityState(): Observable<Boolean>
     fun showMessage(): Observable<String>
     fun updateAvatar(): Observable<Uri>
+
+    fun nameFieldErrorState(): Observable<Boolean>
+    fun emailFieldErrorState(): Observable<Boolean>
 }
 
 class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfileInputs, EditProfileOutputs {
@@ -45,6 +49,9 @@ class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfile
     private val mSavingProgressBarVisibilityObservable = BehaviorSubject.createDefault(false)
     private val mShowMessageObservable = PublishSubject.create<String>()
     private val mUpdateAvatarObservable = PublishSubject.create<Uri>()
+
+    private val mNameFieldErrorStateObservable = BehaviorSubject.createDefault(false)
+    private val mEmailFieldErrorStateObservable = BehaviorSubject.createDefault(false)
 
     private var mSavingUserInfoDisposable: Disposable? = null
 
@@ -84,6 +91,17 @@ class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfile
 
     override fun saveButtonClicked() {
         mData?.let {
+
+            val isValidName  = !it.name.isEmpty()
+            val isValidEmail = Patterns.EMAIL_ADDRESS.matcher(it.email).matches()
+
+            mNameFieldErrorStateObservable.onNext(!isValidName)
+            mEmailFieldErrorStateObservable.onNext(!isValidEmail)
+
+            if (!isValidName || !isValidEmail) {
+                return
+            }
+
             mSavingUserInfoDisposable?.dispose()
             mSavingProgressBarVisibilityObservable.onNext(true)
             FirebaseUtils
@@ -127,4 +145,8 @@ class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfile
     override fun showMessage(): Observable<String> = mShowMessageObservable
 
     override fun updateAvatar(): Observable<Uri> = mUpdateAvatarObservable
+
+    override fun nameFieldErrorState(): Observable<Boolean> = mNameFieldErrorStateObservable
+
+    override fun emailFieldErrorState(): Observable<Boolean> = mEmailFieldErrorStateObservable
 }

@@ -25,3 +25,11 @@ fun View.hideGone(hide: Boolean) {
                 View.VISIBLE
             }
 }
+
+fun TextInputLayout.setError(error: Boolean, errorMessage: String) {
+    if (error) {
+        this.error = errorMessage
+    } else {
+        isErrorEnabled = false
+    }
+}

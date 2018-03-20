@@ -24,4 +24,7 @@
     <string name="missing">Отсутствует</string>
     <string name="gallery">Галерея</string>
     <string name="camera">Камера</string>
+    <string name="invalid_email">Некорректный email</string>
+    <string name="invalid_phone_number">Некорректный телефон</string>
+    <string name="invalid_name">Некорректное имя</string>
 </resources>

@@ -20,6 +20,7 @@ import ivan.simbirsoft.maketalents.activities.base.ViewModelActivity
 import ivan.simbirsoft.maketalents.fragments.SimpleMessageDialog
 import ivan.simbirsoft.maketalents.rx.SafeFragmentTransactionOperator
 import ivan.simbirsoft.maketalents.utils.hideGone
+import ivan.simbirsoft.maketalents.utils.setError
 import ivan.simbirsoft.maketalents.utils.setText
 import ivan.simbirsoft.maketalents.viewmodel.ViewModelContentState
 import ivan.simbirsoft.maketalents.viewmodels.EditProfileViewModel
@@ -106,6 +107,16 @@ class EditProfileActivity : ViewModelActivity<EditProfileViewModel>() {
                     .skip(1).subscribe {
                         viewModel.inputs.emailWasChanged(it.toString())
                     }
+        }
+
+        viewModel.outputs.emailFieldErrorState().compose(bindToLifecycle()).subscribe {
+            //todo "error"
+            emailTextInputLayout.setError(it, "error")
+        }
+
+        viewModel.outputs.nameFieldErrorState().compose(bindToLifecycle()).subscribe {
+            //todo "error"
+            nameTextInputLayout.setError(it, "error")
         }
 
         viewModel.outputs.updateAvatar().compose(bindToLifecycle()).subscribe {
