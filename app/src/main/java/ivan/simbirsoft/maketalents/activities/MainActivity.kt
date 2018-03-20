@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 //        val auth = FirebaseAuth.getInstance()
 
         b.setOnClickListener {
-            startActivityForResult(Intent(this, AuthorizationActivity::class.java), 1)
+            startActivityForResult(Intent(this, EditProfileActivity::class.java), 1)
 //            if (auth.currentUser == null) {
 //                auth.createUserWithEmailAndPassword("12", "213").addOnFailureListener {
 //                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()

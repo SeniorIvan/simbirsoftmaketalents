@@ -13,4 +13,9 @@
     <string name="exit">Выход</string>
     <string name="hide_contact_information">Скрыть контактные данные</string>
     <string name="visible_to_all">Видимый для всех</string>
+    <string name="change_photo">Сменить фотографию</string>
+    <string name="personal_data">Личные данные</string>
+    <string name="name">Имя</string>
+    <string name="telephone">Телефон</string>
+    <string name="save">Сохранить</string>
 </resources>

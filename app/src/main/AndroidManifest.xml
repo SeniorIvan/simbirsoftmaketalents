@@ -25,6 +25,11 @@
             android:name=".activities.ProfileActivity"
             android:label="@string/profile"
             android:theme="@style/ProfileActivityTheme" />
+
+        <activity
+            android:name=".activities.EditProfileActivity"
+            android:label="@string/edit"
+            android:theme="@style/EditProfileActivityTheme" />
     </application>
 
 </manifest>
