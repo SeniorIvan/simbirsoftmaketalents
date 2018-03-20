@@ -65,7 +65,7 @@ class ProfileActivity: ViewModelActivity<ProfileViewModel>() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        viewModel.inputs.actionBarBackButtonCliked()
-        return true
+        viewModel.inputs.actionBarBackButtonClicked()
+        return false
     }
 }

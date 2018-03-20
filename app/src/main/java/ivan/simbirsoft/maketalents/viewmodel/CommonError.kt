@@ -12,7 +12,8 @@ private val mContext = ViewModelUtils.sApplicationContext
 
 enum class CommonError(private val message: String): ViewModelError {
     OK("ok"),
-    SOME_ERROR(mContext.getString(R.string.viewmodel_some_error));
+    SOME_ERROR(mContext.getString(R.string.viewmodel_some_error)),
+    NOT_AUTH(mContext.getString(R.string.not_auth));
 
     override fun message() = message
 }

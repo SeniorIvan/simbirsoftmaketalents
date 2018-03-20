@@ -14,20 +14,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val auth = FirebaseAuth.getInstance()
-
-        b.setOnClickListener {
-            startActivityForResult(Intent(this, EditProfileActivity::class.java), 1)
-//            if (auth.currentUser == null) {
-//                auth.createUserWithEmailAndPassword("12", "213").addOnFailureListener {
-//                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-//                }.addOnSuccessListener {
-//                    Toast.makeText(this, it.user.uid, Toast.LENGTH_LONG).show()
-//                }
-//            }
+        loginButton.setOnClickListener {
+            startActivityForResult(Intent(this, AuthorizationActivity::class.java), 1)
         }
 
-
+        profileButton.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

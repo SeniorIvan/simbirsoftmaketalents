@@ -3,11 +3,13 @@ package ivan.simbirsoft.maketalents.viewmodels
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import ivan.simbirsoft.maketalents.R
 import ivan.simbirsoft.maketalents.entities.UserEntity
 import ivan.simbirsoft.maketalents.utils.FirebaseUtils
 import ivan.simbirsoft.maketalents.utils.Signal
 import ivan.simbirsoft.maketalents.utils.emit
 import ivan.simbirsoft.maketalents.viewmodel.BaseDataLoadingViewModel
+import ivan.simbirsoft.maketalents.viewmodel.ViewModelUtils
 
 /**
  * Created by Ivan Kuznetsov
@@ -16,7 +18,7 @@ import ivan.simbirsoft.maketalents.viewmodel.BaseDataLoadingViewModel
 
 interface ProfileInputs {
 
-    fun actionBarBackButtonCliked()
+    fun actionBarBackButtonClicked()
     fun logoutButtonClicked()
     fun editProfileButtonClicked()
 }
@@ -35,10 +37,26 @@ class ProfileViewModel: BaseDataLoadingViewModel<UserEntity>(), ProfileInputs, P
     val outputs: ProfileOutputs = this
 
     override fun onCreateDataObservable(): Observable<UserEntity> {
-        return FirebaseUtils.fetchUser()
+        return FirebaseUtils.fetchUser().flatMap {
+            val missingText = lazy { ViewModelUtils.sApplicationContext.getString(R.string.missing) }
+
+            if (it.name.isEmpty()) {
+                it.name = missingText.value
+            }
+
+            if (it.email.isEmpty()) {
+                it.email = missingText.value
+            }
+
+            if (it.phoneNumber.isEmpty()) {
+                it.phoneNumber = missingText.value
+            }
+
+            return@flatMap Observable.just(it);
+        }
     }
 
-    override fun actionBarBackButtonCliked() {
+    override fun actionBarBackButtonClicked() {
         mFinishActivityObservable.emit()
     }
 
