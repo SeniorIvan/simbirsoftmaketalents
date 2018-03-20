@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/authorization_background"
+            tools:background="@android:color/holo_green_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,14 +23,14 @@
             android:id="@+id/avatarImageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@mipmap/ic_launcher"
+            tools:background="@android:color/holo_red_light"
             android:translationY="-70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/blurredAvatarImageView" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="@+id/avatarImageView" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/editProfileTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackground"
@@ -54,7 +54,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
 
         <View
@@ -65,7 +65,7 @@
             android:background="#e0e0e0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/editProfileTextView" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -78,7 +78,7 @@
             app:srcCompat="@drawable/ic_perm_device_phone" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/phoneNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -101,7 +101,7 @@
             app:srcCompat="@drawable/ic_perm_device_email" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/emailTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -121,7 +121,7 @@
             android:background="#e0e0e0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
 
         <TextView
             android:id="@+id/textView6"
@@ -198,7 +198,7 @@
             app:srcCompat="@drawable/ic_perm_device_exit" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/logoutTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -219,7 +219,7 @@
             android:background="#e0e0e0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/logoutTextView" />
 
     </android.support.constraint.ConstraintLayout>
 
