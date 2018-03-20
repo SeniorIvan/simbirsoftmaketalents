@@ -1,6 +1,5 @@
 package ivan.simbirsoft.maketalents.utils
 
-import android.graphics.Bitmap
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -13,7 +12,6 @@ import ivan.simbirsoft.maketalents.entities.UserEntity
 import ivan.simbirsoft.maketalents.viewmodel.CommonError
 import ivan.simbirsoft.maketalents.viewmodel.ViewModelError
 import ivan.simbirsoft.maketalents.viewmodel.ViewModelThrowable
-import java.io.ByteArrayOutputStream
 
 /**
  * Created by Ivan Kuznetsov
@@ -69,7 +67,7 @@ class FirebaseUtils {
             return create
         }
 
-        fun uploadAvatar(avatar: Bitmap): Observable<Uri> {
+        fun uploadAvatar(avatarUri: Uri): Observable<Uri> {
             return Observable.create({ emitter ->
                 try {
                     val fireBaseUser = FirebaseAuth.getInstance().currentUser
@@ -82,17 +80,14 @@ class FirebaseUtils {
                         val storageRef = FirebaseStorage.getInstance().reference
                         val mountainsRef = storageRef.child("avatars").child("$uid.jpg")
 
-                        val baos = ByteArrayOutputStream()
-                        avatar.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                        val data = baos.toByteArray()
-
-                        val uploadTask = mountainsRef.putBytes(data)
+                        val uploadTask = mountainsRef.putFile(avatarUri)
                         uploadTask.addOnFailureListener({
                             emitter.onError(it)
                         }).addOnSuccessListener({ taskSnapshot ->
                             val downloadUrl = taskSnapshot.downloadUrl
                             if (downloadUrl != null) {
                                 emitter.onNext(downloadUrl)
+                                emitter.onComplete()
                             } else {
                                 emitter.onError(ViewModelThrowable(object : ViewModelError {
                                     override fun message(): String {
@@ -137,10 +132,9 @@ class FirebaseUtils {
 
                         dataBase.child("users").child(uid).setValue(user).addOnSuccessListener {
                             emitter.onNext(user)
+                            emitter.onComplete()
                         }.addOnFailureListener {
                             emitter.onError(it)
-                        }.addOnCompleteListener {
-                            emitter.onComplete()
                         }
                     }
                 } catch (e: Exception) {

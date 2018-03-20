@@ -22,4 +22,6 @@
     <string name="empty">Пусто</string>
     <string name="repeat">Повторить</string>
     <string name="missing">Отсутствует</string>
+    <string name="gallery">Галерея</string>
+    <string name="camera">Камера</string>
 </resources>

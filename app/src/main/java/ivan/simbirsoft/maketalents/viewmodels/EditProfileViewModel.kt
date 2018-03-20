@@ -1,5 +1,6 @@
 package ivan.simbirsoft.maketalents.viewmodels
 
+import android.net.Uri
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
@@ -25,19 +26,25 @@ interface EditProfileInputs {
     fun emailWasChanged(email: String)
     fun nameWasChanged(name: String)
     fun phoneNumberWasChanged(phoneNumber: String)
+
+    fun avatarWasSelected(photoUri: Uri)
 }
 
 interface EditProfileOutputs {
     fun finishActivity(): Observable<Signal>
+    fun finishActivityWithResult(): Observable<Signal>
     fun savingProgressBarVisibilityState(): Observable<Boolean>
     fun showMessage(): Observable<String>
+    fun updateAvatar(): Observable<Uri>
 }
 
 class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfileInputs, EditProfileOutputs {
 
     private val mFinishActivityObservable = PublishSubject.create<Signal>()
+    private val mFinishActivityWithResultObservable = PublishSubject.create<Signal>()
     private val mSavingProgressBarVisibilityObservable = BehaviorSubject.createDefault(false)
     private val mShowMessageObservable = PublishSubject.create<String>()
+    private val mUpdateAvatarObservable = PublishSubject.create<Uri>()
 
     private var mSavingUserInfoDisposable: Disposable? = null
 
@@ -57,17 +64,35 @@ class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfile
         mFinishActivityObservable.emit()
     }
 
+    override fun avatarWasSelected(photoUri: Uri) {
+        mSavingUserInfoDisposable?.dispose()
+        mSavingProgressBarVisibilityObservable.onNext(true)
+        mSavingUserInfoDisposable = FirebaseUtils.uploadAvatar(photoUri)
+                .doFinally {
+                    mSavingProgressBarVisibilityObservable.onNext(false)
+                }.subscribe({result ->
+                    mData?.let {
+                        it.avatarUrl = result.toString()
+                    }
+                    mUpdateAvatarObservable.onNext(result)
+                }, { error ->
+                    val m = error.message
+                            ?: ViewModelUtils.sApplicationContext.getString(R.string.viewmodel_some_error)
+                    mShowMessageObservable.onNext(m)
+                })
+    }
+
     override fun saveButtonClicked() {
         mData?.let {
             mSavingUserInfoDisposable?.dispose()
             mSavingProgressBarVisibilityObservable.onNext(true)
             FirebaseUtils
-                    .updateUserInformation(it.name, it.phoneNumber, it.email, it.avatarUrl).doFinally {
+                    .updateUserInformation(it.name, it.phoneNumber, it.email, it.avatarUrl)
+                    .doFinally {
                         mSavingProgressBarVisibilityObservable.onNext(false)
                     }
-                    .subscribe({ result ->
-                        mData = result
-                        mShowMessageObservable.onNext("Данные сохранены")
+                    .subscribe({
+                        mFinishActivityWithResultObservable.onNext(Signal.Instance)
                     }, { error ->
                         val m = error.message
                                 ?: ViewModelUtils.sApplicationContext.getString(R.string.viewmodel_some_error)
@@ -92,8 +117,14 @@ class EditProfileViewModel : BaseDataLoadingViewModel<UserEntity>(), EditProfile
         return mFinishActivityObservable
     }
 
+    override fun finishActivityWithResult(): Observable<Signal> {
+        return mFinishActivityWithResultObservable
+    }
+
     override fun savingProgressBarVisibilityState(): Observable<Boolean> =
             mSavingProgressBarVisibilityObservable
 
     override fun showMessage(): Observable<String> = mShowMessageObservable
+
+    override fun updateAvatar(): Observable<Uri> = mUpdateAvatarObservable
 }

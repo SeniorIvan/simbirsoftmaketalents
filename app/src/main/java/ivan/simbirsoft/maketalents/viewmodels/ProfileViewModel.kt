@@ -21,6 +21,8 @@ interface ProfileInputs {
     fun actionBarBackButtonClicked()
     fun logoutButtonClicked()
     fun editProfileButtonClicked()
+
+    fun profileWasEdited()
 }
 
 interface ProfileOutputs {
@@ -63,6 +65,11 @@ class ProfileViewModel: BaseDataLoadingViewModel<UserEntity>(), ProfileInputs, P
     override fun logoutButtonClicked() {
         FirebaseAuth.getInstance().signOut()
         mFinishActivityObservable.emit()
+    }
+
+    override fun profileWasEdited() {
+        //seems will be load from cache
+        fetchData()
     }
 
     override fun editProfileButtonClicked() {

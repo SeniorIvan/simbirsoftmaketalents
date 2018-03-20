@@ -1,5 +1,6 @@
 package ivan.simbirsoft.maketalents.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.squareup.picasso.Picasso
@@ -16,6 +17,10 @@ import kotlinx.android.synthetic.main.layout_profile.*
  * on 19.03.2018.
  */
 class ProfileActivity: ViewModelActivity<ProfileViewModel>() {
+
+    companion object {
+        const val DEFAULT_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/simbirsoft-maketalents.appspot.com/o/default_avatar.png?alt=media&token=92bd7949-4bf6-43eb-bb28-98c349890084"
+    }
 
     override fun onCreateViewModel() = ProfileViewModel()
 
@@ -43,8 +48,7 @@ class ProfileActivity: ViewModelActivity<ProfileViewModel>() {
             phoneNumberTextView.text = it.phoneNumber
             emailTextView.text = it.email
 
-            Picasso.get().load(R.drawable.default_avatar).into(avatarImageView)
-            Picasso.get().load(R.drawable.default_avatar).into(blurredAvatarImageView)
+            updateAvatars(it.avatarUrl)
         }
 
         editProfileTextView.setOnClickListener {
@@ -64,8 +68,26 @@ class ProfileActivity: ViewModelActivity<ProfileViewModel>() {
         }
     }
 
+    private fun updateAvatars(url: String) {
+        if (url.isEmpty()) {
+            Picasso.get().load(ProfileActivity.DEFAULT_AVATAR_URL).into(avatarImageView)
+            Picasso.get().load(ProfileActivity.DEFAULT_AVATAR_URL).into(blurredAvatarImageView)
+        } else {
+            //todo need refactoring
+            Picasso.get().load(url).into(avatarImageView)
+            Picasso.get().load(url).into(blurredAvatarImageView)
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         viewModel.inputs.actionBarBackButtonClicked()
         return false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            viewModel.inputs.profileWasEdited()
+        }
     }
 }

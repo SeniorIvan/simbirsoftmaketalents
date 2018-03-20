@@ -90,7 +90,7 @@ abstract class BaseDataLoadingViewModel<ItemType> : BaseViewModel(),
         updateContentPageAndEmit(ViewModelContentState.ERROR_PAGE)
     }
 
-    private fun fetchData() {
+    protected fun fetchData() {
         mDataDisposable?.dispose()
 
         mDataDisposable = onCreateDataObservable().
