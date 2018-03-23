@@ -7,8 +7,9 @@ buildscript {
     ext.rxandroid_version = '2.0.2'
     ext.arch_lifecycle = '1.1.0'
     ext.rxbinding_version = '2.0.0'
-    ext.firebase_version = '11.8.0'
+    ext.firebase_version = '12.0.0'
     ext.rxlifecycle_version = '2.2.1'
+    ext.play_services_version = '12.0.0'
 
     repositories {
         google()

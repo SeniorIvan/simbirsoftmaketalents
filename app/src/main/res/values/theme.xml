@@ -23,6 +23,8 @@
 
     <style name="EditProfileActivityTheme" parent="ProfileActivityTheme"/>
 
+    <style name="MapActivityTheme" parent="AppTheme"/>
+
     <style name="AuthorizationActionBarTheme" parent="Widget.AppCompat.Light.ActionBar.Solid">
         <item name="background">@null</item>
     </style>

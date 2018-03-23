@@ -21,6 +21,10 @@ class MainActivity : AppCompatActivity() {
         profileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+
+        mapButton.setOnClickListener {
+            startActivity(Intent(this, MapActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

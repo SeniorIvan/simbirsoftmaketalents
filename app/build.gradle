@@ -36,6 +36,10 @@ dependencies {
     implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle_version"
     implementation "android.arch.lifecycle:extensions:$arch_lifecycle"
 
+    implementation "com.google.android.gms:play-services-maps:$play_services_version"
+    implementation "com.google.android.gms:play-services-location:$play_services_version"
+
+
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.1'
