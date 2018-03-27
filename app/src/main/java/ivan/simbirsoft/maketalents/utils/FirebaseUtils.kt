@@ -112,7 +112,12 @@ class FirebaseUtils {
             })
         }
 
-        fun updateUserInformation(name: String, phoneNumber: String, email: String, avatarUrl: String): Observable<UserEntity> {
+        fun updateUserInformation(name: String,
+                                  phoneNumber: String,
+                                  email: String,
+                                  avatarUrl: String,
+                                  latitude: Double = 0.0,
+                                  longitude: Double = 0.0): Observable<UserEntity> {
             return Observable.create({ emitter ->
                 try {
                     val fireBaseUser = FirebaseAuth.getInstance().currentUser
@@ -128,6 +133,8 @@ class FirebaseUtils {
                             it.phoneNumber = phoneNumber
                             it.email = email
                             it.avatarUrl = avatarUrl
+                            it.latitude = latitude
+                            it.longitude = longitude
                         }
 
                         dataBase.child("users").child(uid).setValue(user).addOnSuccessListener {

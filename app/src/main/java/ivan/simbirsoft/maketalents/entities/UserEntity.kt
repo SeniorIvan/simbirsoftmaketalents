@@ -10,4 +10,6 @@ class UserEntity {
     var phoneNumber: String = ""
     var email: String = ""
     var avatarUrl: String = ""
+    var latitude: Double? = null
+    var longitude: Double? = null
 }
