@@ -28,4 +28,5 @@
     <string name="invalid_email">Некорректный email</string>
     <string name="invalid_phone_number">Некорректный телефон</string>
     <string name="invalid_name">Некорректное имя</string>
+    <string name="stop">Остановить</string>
 </resources>

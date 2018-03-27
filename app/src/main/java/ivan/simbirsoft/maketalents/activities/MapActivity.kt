@@ -2,12 +2,13 @@ package ivan.simbirsoft.maketalents.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.widget.Toast
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,9 +19,14 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import ivan.simbirsoft.maketalents.R
+import ivan.simbirsoft.maketalents.TrackingPositionService
 import ivan.simbirsoft.maketalents.activities.base.ViewModelActivity
 import ivan.simbirsoft.maketalents.viewmodels.MapViewModel
 import kotlinx.android.synthetic.main.activity_map_activity.*
+
+
+
+
 
 
 /**
@@ -50,8 +56,8 @@ class MapActivity : ViewModelActivity<MapViewModel>(), OnMapReadyCallback {
 
         findMyLocationButton.setOnClickListener {
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
             } else {
                 startFindMyLocation()
             }
@@ -63,6 +69,35 @@ class MapActivity : ViewModelActivity<MapViewModel>(), OnMapReadyCallback {
 
         minusButton.setOnClickListener {
             mMap?.animateCamera(CameraUpdateFactory.zoomOut())
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopFindMyLocation()
+    }
+
+    private val mLocationRequest = LocationRequest.create().also {
+        it.interval = 10000
+        it.fastestInterval = 10000
+        it.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+    }
+
+    private var mMyMarker: Marker? = null
+
+    private var mLocationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val lastLocation = locationResult.lastLocation
+            val longitude = lastLocation.longitude
+            val latitude = lastLocation.latitude
+            val latLng = LatLng(longitude, latitude)
+
+            val myMarker = mMyMarker
+            if (myMarker == null) {
+                mMyMarker = mMap?.addMarker(MarkerOptions().position(latLng))
+            } else {
+                myMarker.position = latLng
+            }
         }
     }
 
@@ -80,32 +115,12 @@ class MapActivity : ViewModelActivity<MapViewModel>(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun startFindMyLocation() {
+        startService(Intent(this, TrackingPositionService::class.java))
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+    }
 
-        val locationRequest = LocationRequest.create()
-        locationRequest.interval = 10000
-        locationRequest.fastestInterval = 5000
-        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-
-        val locationCallBack: LocationCallback = object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult) {
-                val location = result.lastLocation
-                val map = mMap
-
-                if (location != null && map != null) {
-                    val myLatLng = LatLng(location.latitude, location.longitude)
-                    map.addMarker(MarkerOptions().position(myLatLng).title("you"))
-                    map.moveCamera(CameraUpdateFactory.newLatLng(myLatLng))
-                }
-            }
-        }
-        val requestLocationTask = mFusedLocationClient
-                .requestLocationUpdates(locationRequest, locationCallBack, null)
-
-        requestLocationTask.addOnCompleteListener {
-            mFusedLocationClient.removeLocationUpdates(locationCallBack)
-        }.addOnFailureListener {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
-        }
+    private fun stopFindMyLocation() {
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
     }
 
 

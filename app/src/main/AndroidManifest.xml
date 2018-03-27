@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application android:name=".MaketalentsApplication"
         android:icon="@mipmap/ic_launcher"
@@ -44,6 +44,9 @@
             android:label="@string/map"
             android:theme="@style/MapActivityTheme" />
 
+        <service android:name=".TrackingPositionService"/>
+
+        <receiver android:name=".TrackingPositionReceiver" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
