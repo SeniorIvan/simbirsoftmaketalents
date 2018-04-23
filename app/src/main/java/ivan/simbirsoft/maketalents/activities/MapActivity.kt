@@ -77,6 +77,7 @@ class MapActivity : ViewModelActivity<MapViewModel>(), OnMapReadyCallback {
         stopFindMyLocation()
     }
 
+    // TODO ещё вместо also можно использовать apply, тогда it не надо
     private val mLocationRequest = LocationRequest.create().also {
         it.interval = 10000
         it.fastestInterval = 10000
@@ -105,6 +106,7 @@ class MapActivity : ViewModelActivity<MapViewModel>(), OnMapReadyCallback {
         val marker = mMarkers[userId]
 
         if (marker == null) {
+            // TODO marker. если можно без !! вообще было бы отлично
             val m = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)))
             mMarkers[userId] = m
             return m

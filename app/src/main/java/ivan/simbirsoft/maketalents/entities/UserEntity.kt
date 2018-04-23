@@ -4,6 +4,7 @@ package ivan.simbirsoft.maketalents.entities
  * Created by Ivan Kuznetsov
  * on 20.03.2018.
  */
+// TODO может, data-классом его сделать?
 class UserEntity {
 
     var name: String = ""

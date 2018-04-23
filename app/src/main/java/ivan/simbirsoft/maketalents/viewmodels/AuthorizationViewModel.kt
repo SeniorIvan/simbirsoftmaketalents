@@ -36,6 +36,10 @@ class AuthorizationViewModel : BaseViewModel(), AuthorizationInputs, Authorizati
 
     val mFirebaseAuth = FirebaseAuth.getInstance()
 
+    // TODO здесь может быть проблема, что сабдежкт получив ошибку, перестанет дальше выдавать значения
+    // TODO поэтому для такого связывания можно использовать RxRelay, но это не критично, если
+    // TODO обновлять только при удачном результате, а не подписываться на обзервабл, который
+    // TODO может вернуть ошибку
     private val mEmailValueObservable = BehaviorSubject.createDefault<String>("")
     private val mPasswordValueObservable = BehaviorSubject.createDefault<String>("")
     private val mLoginProgressBarVisibilityObservable = BehaviorSubject.createDefault(false)

@@ -46,6 +46,7 @@ class SimpleMessageDialog : DialogFragment() {
         val title: String? = getTitle()
         val message: String? = getMessage()
 
+        // TODO setTitle в принципе может и нуллы принимать
         title?.let {
             builder.setTitle(it)
         }

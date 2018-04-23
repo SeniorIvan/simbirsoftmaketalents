@@ -29,6 +29,7 @@ class FirebaseUtils {
                     if (fireBaseUser == null) {
                         it.onError(ViewModelThrowable(CommonError.NOT_AUTH))
                     } else {
+                        // TODO почему d-то? database? это вроде reference
                         val d = FirebaseDatabase.getInstance().reference
                         val uid = fireBaseUser.uid
 

@@ -14,6 +14,8 @@ abstract class ViewModelActivity<VM : BaseViewModel>: BaseActivity() {
 
     protected lateinit var viewModel: VM
 
+    // TODO не совсем удачное название, по названию это как будто бы коллбек, который сработает
+    // TODO при создании вью модели, а на самом деле - метод, который её возвращает
     abstract fun onCreateViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
