@@ -28,6 +28,8 @@ class AuthorizationActivity: ViewModelActivity<AuthorizationViewModel>() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setContentView(R.layout.activity_authorization)
 
+        // TODO раз .compose(bindToLifecycle()) так часто используется, может его сделать
+        // TODO расширением к Observable<T>?
         viewModel.outputs.emailValue().compose(bindToLifecycle()).take(1).subscribe {
             emailTextInputLayout.setText(it)
         }
